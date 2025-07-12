@@ -1,4 +1,5 @@
 import React from "react";
+import '../index.css'; 
 
 const CourseCard = ({ course, onViewDetails, onToggleFavorite, isFavorite }) => {
     return (
