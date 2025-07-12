@@ -6,6 +6,11 @@ const HomePage = () => {
   return (
     <div style={{ padding: '1rem' }}>
       <h2>Danh sách sản phẩm</h2>
+      <input
+        type="text"
+        placeholder="Tìm kiếm sản phẩm..."
+        style={{ marginBottom: '1rem', padding: '0.5rem', width: '100%' }}
+      />
       <div style={{ display: 'grid', gap: '1rem', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))' }}>
         {products.map((product) => (
           <div key={product.id} style={{ border: '1px solid #ccc', padding: '1rem', borderRadius: '8px' }}>

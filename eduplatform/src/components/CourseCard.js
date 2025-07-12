@@ -1,0 +1,18 @@
+import React from "react";
+
+const CourseCard = ({ course, onViewDetails, onToggleFavorite, isFavorite }) => {
+    return (
+        <div className="course-card">
+            <img src={course.image} alt={course.name} />
+            <h3>{course.name}</h3>
+            <p>{course.description}</p>
+            <p>Giá: {course.price.toLocaleString()}đ</p>
+            <div>
+                <button onClick={() => onViewDetails(course)}>Xem chi tiết</button>
+                <button onClick={() => onToggleFavorite(course.id)}>Yêu thích</button>
+            </div>
+        </div>
+    );
+};
+
+export default CourseCard;
