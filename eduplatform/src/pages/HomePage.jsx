@@ -2,6 +2,7 @@
 import React, {useState} from 'react';
 import CourseCard from '../components/CourseCard';
 import { products } from '../data/products';
+import CourseModal from '../components/CourseModal';
 import '../index.css'; 
 
 
@@ -33,7 +34,7 @@ const HomePage = () => {
         placeholder="Tìm kiếm sản phẩm..."
         style={{ marginBottom: '1rem', padding: '0.5rem', width: '100%' }}
       />
-      <div className='course-list'>
+      <section className='course-list'>
         {courses.map((course) => (
           <CourseCard
             key={course.id}
@@ -43,8 +44,10 @@ const HomePage = () => {
             isFavorite={favorites.includes(course.id)}
           />
         ))}
-      </div>
+      </section>
+      <CourseModal course={selectedCourse} onClose={() => setSelectedCourse(null)} />
     </div>
+    
   );
 };
 
