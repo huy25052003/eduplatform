@@ -7,10 +7,7 @@ export default function App() {
   return (
     <div>
       <header>
-        <h1>Sàn giáo dục</h1>
-        <nav>
-          <button onClick={() => setView('home')}>Trang chủ</button>
-        </nav>
+        
       </header>
       {view === 'home' && <HomePage />}
     </div>

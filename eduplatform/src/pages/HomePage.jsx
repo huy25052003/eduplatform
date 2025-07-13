@@ -52,18 +52,27 @@ const HomePage = () => {
   return (
     <div className='container'>
       <h1>Chào mừng đến với EduPlatform</h1>
-      <h2>Danh sách sản phẩm</h2>
-      <input
-        type="text"
-        placeholder="Tìm kiếm sản phẩm..."
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        style={{ marginBottom: '1rem', padding: '0.5rem', width: '100%' }}
-      />
-      <div>
+      <div className="button-group">
         <button onClick={() => {setShowFavorites(false); setShowHistory(false)}}>Danh sách khóa học</button>
         <button onClick={() => {setShowFavorites(true); setShowHistory(false)}}>Yêu thích</button>
         <button onClick={() => {setShowFavorites(false); setShowHistory(true)}}>Lịch sử xem</button>
+      </div>
+      <div className="search-filter">
+        <input
+          type="text"
+          placeholder="Tìm kiếm khóa học..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+        <select
+          value={priceFilter}
+          onChange={(e) => setPriceFilter(e.target.value)}
+        >
+          <option value="">Tất cả giá</option>
+          <option value="<500K"> 500K</option>
+          <option value="500K-1M">500K - 1M</option>
+          <option value=">1M"> 1M</option>
+        </select>
       </div>
       {showFavorites ? (
         <div className="course-list">

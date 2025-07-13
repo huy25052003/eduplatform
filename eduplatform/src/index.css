@@ -1,81 +1,128 @@
-*{
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-body{
-    font-family: 'Arial', sans-serif;
-    line-height: 1.6;
 
-
-}
-container{
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-.course-list h2 {
-  font-size: 1.75rem;
-  margin-bottom: 16px;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
+body {
+  font-family: 'Segoe UI', sans-serif;
+  line-height: 1.6;
+  background-color: #f3f4f6;
+  color: #111827;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Header */
+h1 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 24px;
+  color: #1f2937;
+}
+
+/* Button group (tabs) */
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.button-group button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #3b82f6;
+  color: white;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.button-group button:hover {
+  background-color: #2563eb;
+}
+
+/* Search and Filter */
+.search-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 24px;
+  justify-content: center;
+}
+
+.search-filter input,
+.search-filter select {
+  padding: 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 1rem;
+  min-width: 200px;
+}
+
+/* Course List */
 .course-list {
   display: grid;
-  grid-template-columns: repeat(4,1fr);
-  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
 }
 
-/* Course card */
+/* Course Card */
 .course-card {
   background-color: white;
   padding: 16px;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.3s;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .course-card:hover {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 .course-card img {
   width: 100%;
-  height: 300px;
+  height: 200px;
   object-fit: cover;
-  border-radius: 4px;
-  margin-bottom: 8px;
+  border-radius: 6px;
+  margin-bottom: 12px;
 }
 
 .course-card h3 {
-  font-size: 1.25rem;
-  font-weight: 600;
+  font-size: 1.2rem;
   margin-bottom: 8px;
 }
 
 .course-card p.description {
-  color: #4b5563;
+  color: #6b7280;
   margin-bottom: 8px;
 }
 
 .course-card p.price {
   color: #22c55e;
   font-weight: bold;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 }
 
 .course-card .button-group {
   display: flex;
   justify-content: space-between;
-  margin-top: 8px;
 }
 
 .course-card button {
-  padding: 8px 16px;
+  padding: 8px 12px;
   border: none;
   border-radius: 4px;
+  font-size: 0.9rem;
   cursor: pointer;
-  transition: background-color 0.3s;
-  margin-right: 10px;
 }
 
 .course-card button.details {
@@ -88,16 +135,17 @@ container{
 }
 
 .course-card button.favorite {
-  background-color: #d1d5db;
-  color: white;
+  background-color: #e5e7eb;
+  color: #111827;
 }
 
 .course-card button.favorite.active {
   background-color: #ef4444;
+  color: white;
 }
 
 .course-card button.favorite:hover {
-  background-color: #9ca3af;
+  background-color: #d1d5db;
 }
 
 .course-card button.favorite.active:hover {
@@ -111,11 +159,11 @@ container{
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 50;
+  z-index: 1000;
 }
 
 .modal {
@@ -123,42 +171,41 @@ container{
   padding: 24px;
   border-radius: 8px;
   max-width: 500px;
-  width: 100%;
+  width: 90%;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 
 .modal h2 {
   font-size: 1.5rem;
-  font-weight: bold;
   margin-bottom: 16px;
 }
 
 .modal img {
   width: 100%;
-  height: 192px;
+  height: 200px;
   object-fit: cover;
-  border-radius: 4px;
+  border-radius: 6px;
   margin-bottom: 16px;
 }
 
 .modal p.description {
   color: #4b5563;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 }
 
 .modal p.price {
   color: #22c55e;
   font-weight: bold;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 }
 
 .modal button {
-  padding: 8px 16px;
+  padding: 10px 16px;
   background-color: #ef4444;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s;
 }
 
 .modal button:hover {
