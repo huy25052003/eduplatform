@@ -211,3 +211,27 @@ h1 {
 .modal button:hover {
   background-color: #dc2626;
 }
+
+/* Banner */
+.side-banner {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 120px;
+  z-index: 999;
+}
+
+.left-banner {
+  left: 6%;
+}
+
+.right-banner {
+  right: 6%;
+}
+
+.side-banner img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
