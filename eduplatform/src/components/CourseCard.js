@@ -10,7 +10,12 @@ const CourseCard = ({ course, onViewDetails, onToggleFavorite, isFavorite }) => 
             <p>Giá: {course.price.toLocaleString()}đ</p>
             <div>
                 <button onClick={() => onViewDetails(course)}>Xem chi tiết</button>
-                <button onClick={() => onToggleFavorite(course.id)}>Yêu thích</button>
+                <button
+          className={`favorite ${isFavorite ? 'active' : ''}`}
+          onClick={() => onToggleFavorite(course.id)}
+        >
+          {isFavorite ? 'Bỏ yêu thích' : 'Yêu thích'}
+        </button>
             </div>
         </div>
     );

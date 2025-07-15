@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import CourseCard from '../components/CourseCard';
 import { products } from '../data/products';
 import CourseModal from '../components/CourseModal';
+import BotpressChat from '../components/BotpressChat';
 import '../index.css'; 
 
 const HomePage = () => {
@@ -111,6 +112,7 @@ const HomePage = () => {
         </div>
 
         <CourseModal course={selectedCourse} onClose={() => setSelectedCourse(null)} />
+        <BotpressChat />
       </div>
     </>
   );

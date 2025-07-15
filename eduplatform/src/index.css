@@ -215,18 +215,17 @@ h1 {
 /* Banner */
 .side-banner {
   position: fixed;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 100px;
   width: 120px;
-  z-index: 999;
+  z-index: 2;
 }
 
 .left-banner {
-  left: 6%;
+  left: 10px;
 }
 
 .right-banner {
-  right: 6%;
+  right: 10px;
 }
 
 .side-banner img {
