@@ -20,7 +20,7 @@ function App() {
           zIndex: 1000
         }}
       />
-      <Fab onClick={() => toggleWebchat()} style={{ position: 'fixed', bottom: '20px', right: '20px',zIndex:1000, width:'50px', height:'50px' }} />
+      <Fab onClick={() => toggleWebchat()} style={{ position: 'fixed', bottom: '20px', right: '20px',zIndex:1000, width:'50px', height:'50px' , backgroundColor:'#3b82f6' }} />
     </>
   )
 }

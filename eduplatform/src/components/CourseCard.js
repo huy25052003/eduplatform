@@ -15,7 +15,7 @@ const CourseCard = ({ course, onViewDetails, onToggleFavorite, isFavorite }) => 
           onClick={() => onToggleFavorite(course.id)}
         >
           {isFavorite ? 'Bỏ yêu thích' : 'Yêu thích'}
-        </button>
+        </button>  
             </div>
         </div>
     );

@@ -69,13 +69,17 @@ const HomePage = () => {
       </div>
 
       {/* Nội dung chính */}
-      <div className='container'>
-        <h1>Chào mừng đến với EduPlatform</h1>
-        <div className="button-group">
+      <header className="main-header">
+        <div className="logo">EduPlatform</div>
+        <nav className="nav-links">
           <button onClick={() => { setShowFavorites(false); setShowHistory(false); }}>Danh sách khóa học</button>
           <button onClick={() => { setShowFavorites(true); setShowHistory(false); }}>Yêu thích</button>
           <button onClick={() => { setShowFavorites(false); setShowHistory(true); }}>Lịch sử xem</button>
-        </div>
+        </nav>
+      </header>
+
+      <div className='container'>
+        
         <div className="search-filter">
           <input
             type="text"
@@ -114,6 +118,16 @@ const HomePage = () => {
         <CourseModal course={selectedCourse} onClose={() => setSelectedCourse(null)} />
         <BotpressChat />
       </div>
+      <footer className="footer">
+      <div className="footer-container">
+        <p>© {new Date().getFullYear()} EduPlatform. All rights reserved.</p>
+        <div className="footer-links">
+          <a href="#">Về chúng tôi</a>
+          <a href="#">Liên hệ</a>
+          <a href="#">Chính sách bảo mật</a>
+        </div>
+      </div>
+    </footer>
     </>
   );
 };

@@ -66,7 +66,9 @@ h1 {
   font-size: 1rem;
   min-width: 200px;
 }
-
+.search-filter input {
+  width: 700px;
+}
 /* Course List */
 .course-list {
   display: grid;
@@ -120,6 +122,7 @@ h1 {
 .course-card button {
   padding: 8px 12px;
   border: none;
+  margin: 4px ;
   border-radius: 4px;
   font-size: 0.9rem;
   cursor: pointer;
@@ -233,4 +236,74 @@ h1 {
   height: auto;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer */
+.footer {
+  background-color: #1f2937;
+  color: #f9fafb;
+  padding: 24px 20px;
+  margin-top: 40px;
+  text-align: center;
+}
+
+.footer-container {
+  max-width: 1024px;
+  margin: 0 auto;
+}
+
+.footer-links {
+  margin-top: 12px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.footer-links a {
+  color: #9ca3af;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-links a:hover {
+  color: #ffffff;
+}
+
+/* Header */
+.main-header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 16px 20px;
+  background-color: #1f2937;
+  color: white;
+  flex-wrap: wrap;
+}
+
+.logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #3b82f6;
+}
+
+.nav-links {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.nav-links button {
+  padding: 8px 16px;
+  border: none;
+  background-color: #3b82f6;
+  color: white;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.nav-links button:hover {
+  background-color: #2563eb;
 }
