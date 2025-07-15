@@ -307,3 +307,18 @@ h1 {
 .nav-links button:hover {
   background-color: #2563eb;
 }
+
+/* Skeleton Loader */
+.skeleton-container {
+  display: flex;
+  gap: 20px;
+}
+.skeleton-card {
+  width: 300px;
+  height: 348px;
+  padding: 16px;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.2s infinite;
+}

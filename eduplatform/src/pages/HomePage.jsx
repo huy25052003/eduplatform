@@ -1,13 +1,14 @@
 
 import React, { useState, useEffect } from 'react';
 import CourseCard from '../components/CourseCard';
-import { products } from '../data/products';
 import CourseModal from '../components/CourseModal';
 import BotpressChat from '../components/BotpressChat';
+import { fetchCourses } from '../api/courseApi';
 import '../index.css'; 
 
 const HomePage = () => {
-  const [courses] = useState(products);
+  const [courses, setCourses] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [favorites, setFavorites] = useState([]);
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
@@ -18,7 +19,19 @@ const HomePage = () => {
   const [filteredCourses, setFilteredCourses] = useState(courses);
 
   useEffect(() => {
-    let filtered = courses;
+    const loadData = async () => {
+      setLoading(true);
+      const data = await fetchCourses();
+      setCourses(data);
+      setFilteredCourses(data);
+      setLoading(false);
+    };
+    loadData();
+  }, []);
+
+
+  useEffect(() => {
+    let filtered = [...courses];
     if (searchTerm) {
       filtered = filtered.filter(course =>
         course.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -97,24 +110,28 @@ const HomePage = () => {
             <option value=">1M"> 1M</option>
           </select>
         </div>
-
-        <div className="course-list">
-          {(showFavorites
-            ? courses.filter(course => favorites.includes(course.id))
-            : showHistory
-              ? courses.filter(course => viewedCourses.includes(course.id))
-              : filteredCourses
-          ).map(course => (
-            <CourseCard
-              key={course.id}
-              course={course}
-              onViewDetails={viewDetails}
-              onToggleFavorite={toggleFavorite}
-              isFavorite={favorites.includes(course.id)}
-            />
-          ))}
-        </div>
-
+        {loading ? (
+          <div className="skeleton-container">
+            {[...Array(4)].map((_, i) => <div className="skeleton-card" key={i}></div>)}
+          </div>
+        ) : (
+          <div className="course-list">
+            {(showFavorites
+              ? courses.filter(course => favorites.includes(course.id))
+              : showHistory
+                ? courses.filter(course => viewedCourses.includes(course.id))
+                : filteredCourses
+            ).map(course => (
+              <CourseCard
+                key={course.id}
+                course={course}
+                onViewDetails={viewDetails}
+                onToggleFavorite={toggleFavorite}
+                isFavorite={favorites.includes(course.id)}
+              />
+            ))}
+          </div>
+        )}
         <CourseModal course={selectedCourse} onClose={() => setSelectedCourse(null)} />
         <BotpressChat />
       </div>
