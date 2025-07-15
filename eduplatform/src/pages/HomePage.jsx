@@ -1,22 +1,23 @@
-
 import React, { useState, useEffect } from 'react';
 import CourseCard from '../components/CourseCard';
 import CourseModal from '../components/CourseModal';
 import BotpressChat from '../components/BotpressChat';
 import { fetchCourses } from '../api/courseApi';
-import '../index.css'; 
+import '../index.css';
 
 const HomePage = () => {
   const [courses, setCourses] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [favorites, setFavorites] = useState([]);
-  const [selectedCourse, setSelectedCourse] = useState(null);
+  const [filteredCourses, setFilteredCourses] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [priceFilter, setPriceFilter] = useState('');
+  const [favorites, setFavorites] = useState([]);
   const [viewedCourses, setViewedCourses] = useState([]);
+  const [selectedCourse, setSelectedCourse] = useState(null);
   const [showFavorites, setShowFavorites] = useState(false);
   const [showHistory, setShowHistory] = useState(false);
-  const [filteredCourses, setFilteredCourses] = useState(courses);
+  const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const coursesPerPage = 8;
 
   useEffect(() => {
     const loadData = async () => {
@@ -28,7 +29,6 @@ const HomePage = () => {
     };
     loadData();
   }, []);
-
 
   useEffect(() => {
     let filtered = [...courses];
@@ -46,26 +46,39 @@ const HomePage = () => {
       });
     }
     setFilteredCourses(filtered);
+    setCurrentPage(1);
   }, [searchTerm, priceFilter, courses]);
 
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [showFavorites, showHistory]);
+
   const toggleFavorite = (courseId) => {
-    setFavorites((prevFavorites) => {
-      if (prevFavorites.includes(courseId)) {
-        return prevFavorites.filter(id => id !== courseId);
-      } else {
-        return [...prevFavorites, courseId];
-      }
-    });
+    setFavorites((prev) =>
+      prev.includes(courseId) ? prev.filter(id => id !== courseId) : [...prev, courseId]
+    );
   };
 
   const viewDetails = (course) => {
     setSelectedCourse(course);
-    setViewedCourses(prev => [course.id, ...prev]);
+    setViewedCourses((prev) =>
+      prev.includes(course.id) ? prev : [course.id, ...prev]
+    );
   };
+
+  const listToShow = showFavorites
+    ? courses.filter(course => favorites.includes(course.id))
+    : showHistory
+      ? courses.filter(course => viewedCourses.includes(course.id))
+      : filteredCourses;
+
+  const indexOfLastCourse = currentPage * coursesPerPage;
+  const indexOfFirstCourse = indexOfLastCourse - coursesPerPage;
+  const currentCourses = listToShow.slice(indexOfFirstCourse, indexOfLastCourse);
+  const totalPages = Math.ceil(listToShow.length / coursesPerPage);
 
   return (
     <>
-      {/* Banner trái */}
       <div className="side-banner left-banner">
         <img
           src="https://cdn.divineshop.vn/image/catalog/Banner/banner%20d%E1%BB%8Dc%201%20t7-25-90116.png?hash=1751858704"
@@ -73,7 +86,6 @@ const HomePage = () => {
         />
       </div>
 
-      {/* Banner phải */}
       <div className="side-banner right-banner">
         <img
           src="https://cdn.divineshop.vn/image/catalog/Banner/banner%20d%E1%BB%8Dc%201%20t7-25-90116.png?hash=1751858704"
@@ -81,18 +93,16 @@ const HomePage = () => {
         />
       </div>
 
-      {/* Nội dung chính */}
       <header className="main-header">
         <div className="logo">EduPlatform</div>
         <nav className="nav-links">
-          <button onClick={() => { setShowFavorites(false); setShowHistory(false); }}>Danh sách khóa học</button>
+          <button onClick={() => { setShowFavorites(false); setShowHistory(false); }}>Danh sách</button>
           <button onClick={() => { setShowFavorites(true); setShowHistory(false); }}>Yêu thích</button>
           <button onClick={() => { setShowFavorites(false); setShowHistory(true); }}>Lịch sử xem</button>
         </nav>
       </header>
 
-      <div className='container'>
-        
+      <div className="container">
         <div className="search-filter">
           <input
             type="text"
@@ -100,28 +110,21 @@ const HomePage = () => {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <select
-            value={priceFilter}
-            onChange={(e) => setPriceFilter(e.target.value)}
-          >
+          <select value={priceFilter} onChange={(e) => setPriceFilter(e.target.value)}>
             <option value="">Tất cả giá</option>
-            <option value="<500K"> 500K</option>
+            <option value="<500K">&lt; 500K</option>
             <option value="500K-1M">500K - 1M</option>
-            <option value=">1M"> 1M</option>
+            <option value=">1M">&gt; 1M</option>
           </select>
         </div>
+
         {loading ? (
           <div className="skeleton-container">
             {[...Array(4)].map((_, i) => <div className="skeleton-card" key={i}></div>)}
           </div>
         ) : (
           <div className="course-list">
-            {(showFavorites
-              ? courses.filter(course => favorites.includes(course.id))
-              : showHistory
-                ? courses.filter(course => viewedCourses.includes(course.id))
-                : filteredCourses
-            ).map(course => (
+            {currentCourses.map(course => (
               <CourseCard
                 key={course.id}
                 course={course}
@@ -132,19 +135,35 @@ const HomePage = () => {
             ))}
           </div>
         )}
+
+        {!loading && totalPages > 1 && (
+          <div className="pagination">
+            {[...Array(totalPages)].map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setCurrentPage(i + 1)}
+                className={currentPage === i + 1 ? 'active' : ''}
+              >
+                {i + 1}
+              </button>
+            ))}
+          </div>
+        )}
+
         <CourseModal course={selectedCourse} onClose={() => setSelectedCourse(null)} />
         <BotpressChat />
       </div>
+
       <footer className="footer">
-      <div className="footer-container">
-        <p>© {new Date().getFullYear()} EduPlatform. All rights reserved.</p>
-        <div className="footer-links">
-          <a href="#">Về chúng tôi</a>
-          <a href="#">Liên hệ</a>
-          <a href="#">Chính sách bảo mật</a>
+        <div className="footer-container">
+          <p>© {new Date().getFullYear()} EduPlatform. All rights reserved.</p>
+          <div className="footer-links">
+            <a href="#">Về chúng tôi</a>
+            <a href="#">Liên hệ</a>
+            <a href="#">Chính sách bảo mật</a>
+          </div>
         </div>
-      </div>
-    </footer>
+      </footer>
     </>
   );
 };
